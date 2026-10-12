@@ -23,7 +23,7 @@ WHERE customer_id = $customer_id;
 
 ```ts
 import { openDuckDb } from 'duckdb-access';
-import customerById from '$lib/server/sql/customer-by-id.sql?raw';
+import customerById from '#lib/server/sql/customer-by-id.sql?raw';
 
 const db = openDuckDb({ path: 'data/app.duckdb', readOnly: true, reopenOnChange: true });
 
@@ -31,6 +31,7 @@ const rows = await db.query(customerById, { customer_id: 1n });
 ```
 
 - In SvelteKit, import `.sql` files with `?raw`.
+  SvelteKit 2 projects import from `$lib/` instead of `#lib/`.
 - Outside Vite (ETL scripts, tests), read them with `loadSql(path)`.
 - Create `db` once per process, in a server-only module.
 
